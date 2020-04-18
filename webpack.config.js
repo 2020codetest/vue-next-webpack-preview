@@ -18,7 +18,7 @@ module.exports = (env = {}) => ({
       // on the first HMR update and causes the page to reload.
       'vue': '@vue/runtime-dom'
     },
-    extensions: [".js", ".ts"]
+    extensions: [".js", ".ts", ".vue"]
   },
   module: {
     rules: [
