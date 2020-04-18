@@ -2,10 +2,12 @@
   <img src="./logo.png">
   <h1>Hello Vue 3!</h1>
   <button @click="inc">Clicked {{ count }} times.</button>
+  <span>double count {{str}}</span>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { ref, computed } from 'vue'
+import { Convert } from "./Convert"
 
 export default {
   setup() {
@@ -14,9 +16,11 @@ export default {
       count.value++
     }
 
+    const str = computed(() => Convert.ConvertToString(count.value))
     return {
       count,
-      inc
+      inc,
+      str
     }
   }
 }
