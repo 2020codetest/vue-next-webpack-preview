@@ -2,7 +2,12 @@
   <img src="./logo.png">
   <h1>Hello Vue 3!</h1>
   <button @click="inc">Clicked {{ count }} times.</button>
+  <br/>
   <span>double count {{str}}</span>
+  <br/>
+  <span @click="updateProp">点击更新传递子组件的值: {{name}}</span>
+  <br/>
+  <br/>
   <br/>
   <div>子组件渲染如下</div>
   <TestComp :name="name" v-on:update="childUpdate"></TestComp>
@@ -31,12 +36,18 @@ export default {
     const childUpdate: (val: number) => void = (val: number) => {
       console.log("收到子组件事件", val)
     }
+
+    const updateProp: () => void = () => {
+      name.value = "父组件传值 " + new Date().toString()
+    }
+
     return {
       count,
       inc,
       str,
       name,
-      childUpdate
+      childUpdate,
+      updateProp
     }
   }
 }
