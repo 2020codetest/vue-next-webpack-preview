@@ -2,6 +2,8 @@
     <div>
         <span @click="updateTime">点击更新当前时间：{{count}}</span>
         <br/>
+        <span>compute 对象：{{compute}}</span>
+        <br/>
         <span>外部变量：{{name}}</span>
         <br/>
         <button @click="emitEvent">传递事件</button>
@@ -9,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, Prop, onMounted, defineComponent, SetupContext, watch } from 'vue'
+import { ref, Ref, Prop, onMounted, defineComponent, SetupContext, watch, ComputedRef, computed } from 'vue'
 export default {
     props: {
         name: String
@@ -31,6 +33,14 @@ export default {
             console.log("props updated to be ", propRef.value)
         }, {deep: true, immediate: true})
 
+        const compute: ComputedRef<string> = computed<string>(() => {
+            return "computed " + count.value;
+        })
+
+        watch(compute, (val: string, old: string) => {
+            console.log("compute updated to be ", val)
+        })
+
         const emitEvent: (...args: any[]) => void = (...args: any[]) => {
             console.log("子组件传递事件", args)
             context.emit("update", 132)
@@ -43,7 +53,8 @@ export default {
         return {
             count,
             emitEvent,
-            updateTime
+            updateTime,
+            compute
         }
     }
 }
