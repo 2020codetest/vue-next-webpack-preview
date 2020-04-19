@@ -10,7 +10,7 @@
   <br/>
   <br/>
   <div>子组件渲染如下</div>
-  <TestComp :name="name" v-on:update="childUpdate"></TestComp>
+  <TestComp ref="testRef" :name="name" v-on:update="childUpdate"></TestComp>
 </template>
 
 <script lang="ts">
@@ -22,7 +22,9 @@ export default {
   name: "App",
   components: {TestComp},
   setup: () => {    
+    const testRef: any = ref(null)
     onMounted(() => {
+        console.log("子组件实例", testRef.value)
         console.log("父组件mounted")
     })
 
@@ -39,6 +41,7 @@ export default {
 
     const updateProp: () => void = () => {
       name.value = "父组件传值 " + new Date().toString()
+      testRef.value.subCompTestFunc()
     }
 
     return {
@@ -47,7 +50,8 @@ export default {
       str,
       name,
       childUpdate,
-      updateProp
+      updateProp,
+      testRef
     }
   }
 }

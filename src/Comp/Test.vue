@@ -50,11 +50,16 @@ export default {
             count.value = new Date().toString()
         }
 
+        const subCompTestFunc: () => void = () => {
+            console.log("子组件调用函数")
+        }
+
         return {
             count,
             emitEvent,
             updateTime,
-            compute
+            compute,
+            subCompTestFunc
         }
     }
 }
