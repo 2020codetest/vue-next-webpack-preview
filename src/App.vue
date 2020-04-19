@@ -5,7 +5,7 @@
   <span>double count {{str}}</span>
   <br/>
   <div>子组件渲染如下</div>
-  <TestComp :name="name"></TestComp>
+  <TestComp :name="name" v-on:update="childUpdate"></TestComp>
 </template>
 
 <script lang="ts">
@@ -28,11 +28,15 @@ export default {
     }
 
     const str: ComputedRef<string> = computed(() => Convert.ConvertToString(count.value))
+    const childUpdate: (val: number) => void = (val: number) => {
+      console.log("收到子组件事件", val)
+    }
     return {
       count,
       inc,
       str,
-      name
+      name,
+      childUpdate
     }
   }
 }
